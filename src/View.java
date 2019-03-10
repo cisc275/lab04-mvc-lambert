@@ -13,27 +13,26 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class View extends JPanel {
-	
-	static JFrame frame = new JFrame();
+		static JFrame frame = new JFrame();
 	final int frameCount = 10;
     int picNum = 0;
-    BufferedImage[][] pics;
+    BufferedImage[] pics;
+    BufferedImage[][] subPics;
 
     final static int frameWidth = 800;
     final static int frameHeight = 500;
-    final static int imgWidth = 165;
-    final static int imgHeight = 165;
+    final int imgWidth = 165;
+    final int imgHeight = 165;
     
-    int xloc = 0;
-    int yloc = 0;
-    Direction d = Direction.SOUTHEAST;
+    int xloc;
+    int yloc;
+    Direction direction = Direction.SOUTHEAST;
     
     public int getWidth() {
     	return this.frameWidth;
@@ -52,9 +51,9 @@ public class View extends JPanel {
     }
     
     public void update(int x, int y, Direction d) {
-    	this.xloc = x;
-    	this.yloc = y;
-    	this.d = d;
+    	xloc = x;
+    	yloc = y;
+    	direction = d;
     	frame.repaint();
     	try {
     		Thread.sleep(100);
@@ -63,63 +62,58 @@ public class View extends JPanel {
     	}
     }
     
-    public void paint(Graphics g) {
+    @SuppressWarnings("incomplete-switch")
+	public void paint(Graphics g) {
     	picNum = (picNum + 1) % frameCount;
     	//Switch statement to determine which direction to use then calling the hasCollided statements to change the 'd' (Direction)
-    	switch (d) {
+    	switch (direction) {
     	
     		case SOUTHWEST:
-    			g.drawImage(pics[6][picNum], xloc, yloc, Color.gray, this);
+    			g.drawImage(subPics[3][picNum], xloc, yloc, Color.gray, this);
     			
     			break;
     			
     		case SOUTHEAST:
-    			g.drawImage(pics[2][picNum], xloc, yloc, Color.gray, this);
+    			g.drawImage(subPics[2][picNum], xloc, yloc, Color.gray, this);
     			
     			break;
     			
     		case NORTHEAST:
-    			g.drawImage(pics[0][picNum], xloc, yloc, Color.gray, this);
+    			g.drawImage(subPics[0][picNum], xloc, yloc, Color.gray, this);
 
     			break;
     			
     		case NORTHWEST:
-    			g.drawImage(pics[1][picNum], xloc, yloc, Color.gray, this);
+    			g.drawImage(subPics[1][picNum], xloc, yloc, Color.gray, this);
     			
     			break;
     	}
     	}
     
     public static void main(String[] args) {
-    	Controller c = new Controller();
+    	Controller control = new Controller();
     	frame.getContentPane().add(new View());
     	frame.setBackground(Color.gray);
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	frame.setSize(frameWidth, frameHeight);
     	frame.setVisible(true);
     	
-    	c.start();
+    	control.start();
     }
     	
      public View(){
-       	File dir = new File("images/orc/");
-       	ArrayList<String> validPics = new ArrayList<>();
-       	pics = new BufferedImage[8][10];
-       	
-       	//Loads all of the files into an ArrayList as long as the criteria (contains "forward") is met
-        for (File f : dir.listFiles()) {
-          	if(f.getName().contains("forward")) {
-        		System.out.println(f.getPath());
-        		validPics.add(f.getPath());
-         	}
-        }
-        	
-    	   for(int i = 0; i < validPics.size(); i++) {
-    	   	BufferedImage img = createImage(validPics.get(i));
-    	    for (int j = 0; j < frameCount; j++) {
-    	    	pics[i][j] = img.getSubimage(imgWidth*j, 0, imgWidth, imgHeight);
-    	    }
-    	}
+    	subPics = new BufferedImage[8][10];
+     	pics = new BufferedImage[4];
+     	pics[0] = createImage("src/images/orc/orc_forward_northeast.png");
+     	pics[1] = createImage("src/images/orc/orc_forward_northwest.png");
+     	pics[2] = createImage("src/images/orc/orc_forward_southeast.png");
+     	pics[3] = createImage("src/images/orc/orc_forward_southwest.png");
+     	
+ 	    for(int i = 0; i < 4; i++) {
+ 	        for (int j = 0; j < frameCount; j++) {
+ 	        	subPics[i][j] = pics[i].getSubimage(imgWidth*j, 0, imgWidth, imgHeight);
+ 	        }
+ 	    }
     }
         
         

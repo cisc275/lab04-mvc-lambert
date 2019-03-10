@@ -42,21 +42,14 @@ public class Model {
     	return this.d;
     }
     
-    public void hasCollidedX() {
+    public void updateLocationAndDirection () {
     	if (xloc < 0 || xloc > frameWidth - imgWidth) {
     		xIncr = -xIncr;
     	}
-    }
-    
-    public void hasCollidedY() {
+    	
     	if (yloc < 0 || yloc > frameHeight - imgHeight) {
     		yIncr = -yIncr;
     	}
-    }
-    
-    public void updateLocationAndDirection () {
-    	hasCollidedX();
-    	hasCollidedY();
     	
     	switch (d) {
     	
@@ -104,6 +97,7 @@ public class Model {
 			
 			break;
     	}
+    	
     	xloc += xIncr;
     	yloc += yIncr;
     }
