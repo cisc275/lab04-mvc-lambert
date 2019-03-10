@@ -30,8 +30,8 @@ public class View extends JPanel {
     final int imgWidth = 165;
     final int imgHeight = 165;
     
-    int xloc;
-    int yloc;
+    int xloc = 0;
+    int yloc = 0;
     Direction direction = Direction.SOUTHEAST;
     
     public int getWidth() {
@@ -50,6 +50,14 @@ public class View extends JPanel {
     	return this.imgHeight;
     }
     
+    public int getX() {
+    	return this.xloc;
+    }
+    
+    public int getY() {
+    	return this.yloc;
+    }
+    
     public void update(int x, int y, Direction d) {
     	xloc = x;
     	yloc = y;
@@ -62,30 +70,26 @@ public class View extends JPanel {
     	}
     }
     
-    @SuppressWarnings("incomplete-switch")
+	@SuppressWarnings("incomplete-switch")
 	public void paint(Graphics g) {
     	picNum = (picNum + 1) % frameCount;
-    	//Switch statement to determine which direction to use then calling the hasCollided statements to change the 'd' (Direction)
+    	//Switch statement to determine which direction to use then calling the hasCollided statements to change the 'direction' (Direction)
     	switch (direction) {
     	
     		case SOUTHWEST:
-    			g.drawImage(subPics[3][picNum], xloc, yloc, Color.gray, this);
-    			
+    			g.drawImage(subPics[3][picNum], getX(), getY(), Color.gray, this);
     			break;
     			
     		case SOUTHEAST:
-    			g.drawImage(subPics[2][picNum], xloc, yloc, Color.gray, this);
-    			
+    			g.drawImage(subPics[2][picNum], getX(), getY(), Color.gray, this);	
     			break;
     			
     		case NORTHEAST:
-    			g.drawImage(subPics[0][picNum], xloc, yloc, Color.gray, this);
-
+    			g.drawImage(subPics[0][picNum], getX(), getY(), Color.gray, this);
     			break;
     			
     		case NORTHWEST:
-    			g.drawImage(subPics[1][picNum], xloc, yloc, Color.gray, this);
-    			
+    			g.drawImage(subPics[1][picNum], getX(), getY(), Color.gray, this);
     			break;
     	}
     	}
