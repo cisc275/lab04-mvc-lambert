@@ -27,7 +27,7 @@ public class View extends JPanel {
     BufferedImage[][] pics;
 
     final static int frameWidth = 800;
-    final static int frameHeight = 495;
+    final static int frameHeight = 500;
     final static int imgWidth = 165;
     final static int imgHeight = 165;
     
@@ -56,19 +56,15 @@ public class View extends JPanel {
     	this.yloc = y;
     	this.d = d;
     	frame.repaint();
-    	for(int i = 0; i < 1000; i++){
-    		try {
-    			Thread.sleep(100);
-    		} catch (InterruptedException e) {
-    			e.printStackTrace();
-    		}
+    	try {
+    		Thread.sleep(100);
+    	} catch (InterruptedException e) {
+    		e.printStackTrace();
     	}
     }
     
     public void paint(Graphics g) {
     	picNum = (picNum + 1) % frameCount;
-    	g.drawImage(pics[2][picNum], xloc, yloc, Color.gray, this);
-    	
     	//Switch statement to determine which direction to use then calling the hasCollided statements to change the 'd' (Direction)
     	switch (d) {
     	
@@ -94,12 +90,15 @@ public class View extends JPanel {
     	}
     	}
     
-    public static void loadWindow() {
+    public static void main(String[] args) {
+    	Controller c = new Controller();
     	frame.getContentPane().add(new View());
     	frame.setBackground(Color.gray);
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	frame.setSize(frameWidth, frameHeight);
     	frame.setVisible(true);
+    	
+    	c.start();
     }
     	
      public View(){
@@ -121,15 +120,12 @@ public class View extends JPanel {
     	    	pics[i][j] = img.getSubimage(imgWidth*j, 0, imgWidth, imgHeight);
     	    }
     	}
-    	//loadWindow();
     }
         
         
         //Read image from file and return
     private BufferedImage createImage(String path){ //Added a path (String) parameter to accept any path as used in paint()
         BufferedImage bufferedImage;
-        	
-        	
         try {
     		System.out.println();
        		bufferedImage = ImageIO.read(new File(path)); //Utilizes the path name

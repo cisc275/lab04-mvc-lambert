@@ -16,10 +16,10 @@ public class Model {
     int xIncr = 8;
     int yIncr = 2;
     
-    static int frameWidth = 800;
-    static int frameHeight = 495;
-    static int imgWidth = 165;
-    static int imgHeight = 165;
+    int frameWidth;
+    int frameHeight;
+    int imgWidth;
+    int imgHeight;
     
     Direction d = Direction.SOUTHEAST;
     
@@ -62,10 +62,10 @@ public class Model {
     	
 		case SOUTHWEST:
 			
-			if (xIncr > 0) {
+			if (xIncr < 0) {
 				d = Direction.SOUTHEAST;
 			}
-			if (yIncr > 0) {
+			if (yIncr < 0) {
 				d = Direction.NORTHWEST;
 			}
 			
@@ -73,10 +73,10 @@ public class Model {
 			
 		case SOUTHEAST:
 			
-			if (xIncr < 0) {
+			if (xIncr > 0) {
 				d = Direction.SOUTHWEST;
 			}
-			if (yIncr > 0) {
+			if (yIncr < 0) {
 				d = Direction.NORTHEAST;
 			}
 			
@@ -84,10 +84,10 @@ public class Model {
 			
 		case NORTHEAST:
 			
-			if (xIncr < 0) {
+			if (xIncr > 0) {
 				d = Direction.NORTHWEST;
 			}
-			if (yIncr < 0) {
+			if (yIncr > 0) {
 				d = Direction.SOUTHEAST;
 			}
 			
@@ -95,10 +95,10 @@ public class Model {
 			
 		case NORTHWEST:
 			
-			if (xIncr > 0) {
+			if (xIncr < 0) {
 				d = Direction.NORTHEAST;
 			}
-			if (yIncr < 0) {
+			if (yIncr > 0) {
 				d = Direction.SOUTHWEST;
 			}
 			
