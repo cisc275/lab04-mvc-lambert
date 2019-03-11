@@ -55,10 +55,10 @@ public class Model {
     	
 		case SOUTHWEST:
 			
-			if (xIncr < 0) {
+			if (xloc < 0 || xloc > frameWidth - imgWidth) {
 				d = Direction.SOUTHEAST;
 			}
-			if (yIncr < 0) {
+			if (yloc < 0 || yloc > frameHeight - imgHeight) {
 				d = Direction.NORTHWEST;
 			}
 			
@@ -66,10 +66,10 @@ public class Model {
 			
 		case SOUTHEAST:
 			
-			if (xIncr > 0) {
+			if (xloc < 0 || xloc > frameWidth - imgWidth) {
 				d = Direction.SOUTHWEST;
 			}
-			if (yIncr < 0) {
+			if (yloc < 0 || yloc > frameHeight - imgHeight) {
 				d = Direction.NORTHEAST;
 			}
 			
@@ -77,10 +77,10 @@ public class Model {
 			
 		case NORTHEAST:
 			
-			if (xIncr > 0) {
+			if (xloc < 0 || xloc > frameWidth - imgWidth) {
 				d = Direction.NORTHWEST;
 			}
-			if (yIncr > 0) {
+			if (yloc < 0 || yloc > frameHeight - imgHeight) {
 				d = Direction.SOUTHEAST;
 			}
 			
@@ -88,10 +88,10 @@ public class Model {
 			
 		case NORTHWEST:
 			
-			if (xIncr < 0) {
+			if (xloc < 0 || xloc > frameWidth - imgWidth) {
 				d = Direction.NORTHEAST;
 			}
-			if (yIncr > 0) {
+			if (yloc < 0 || yloc > frameHeight - imgHeight) {
 				d = Direction.SOUTHWEST;
 			}
 			
